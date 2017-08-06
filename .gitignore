@@ -1,0 +1,11 @@
+*~
+.DS_Store
+
+# Folders
+.idea
+dist
+node_modules
+
+# Generated files
+source/**/*.js
+source/**/*.js.map
