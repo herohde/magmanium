@@ -1,11 +1,12 @@
 import {Score} from "../prefabs/score";
 import {Image} from "../util/image"
 import {Session} from "../session";
+import {Player} from "../prefabs/player";
 
 /*
  * Game state
  *
- * Active invaders game.
+ * Active magmanium game.
  */
 export class Game extends Phaser.State {
     constructor(private session: Session) {
@@ -14,10 +15,27 @@ export class Game extends Phaser.State {
 
     init() {
         this.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 250;
     }
 
     create() {
-        Image.fill(this.game, 'background');
+        // Load level data
+
+        let map = this.game.add.tilemap('level1'); // + this.session.level);
+        map.addTilesetImage('blocks', 'blocks');
+        map.addTilesetImage('gold', 'gold');
+
+        let background = map.createLayer('background');
+        background.setScale(2,2);
+        background.resizeWorld();
+
+        this.blocks = map.createLayer('blocks');
+        this.blocks.setScale(2,2);
+        map.setCollisionByExclusion([], true, 'blocks');
+
+
+
+        this.player = new Player(this.game, 200, 200);
 
         let score = new Score(this.game, 5, 5, this.session.score);
 
@@ -31,10 +49,19 @@ export class Game extends Phaser.State {
             c.kill();
         }, this);
 
+
         // ...
+
+
     }
 
     update() {
+        this.game.physics.arcade.collide(this.player, this.blocks);
+
         // ...
     }
+
+
+    private player: Player;
+    private blocks: Phaser.TilemapLayer;
 }

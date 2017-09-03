@@ -10,6 +10,7 @@ export class Score {
         const style = { font: "32px Arial", fill: "#fff" };
         this.txt = new Phaser.Text(game, x, y, score.value.toString(), style);
         game.add.existing(this.txt);
+        this.txt.fixedToCamera = true;
 
         score.signal.add((n: number) => {
             this.txt.setText(n.toString());

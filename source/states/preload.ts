@@ -23,9 +23,18 @@ export class Preload extends Phaser.State {
         // TODO(herohde) 2/25/2017: asset packs would be nice, but there is poor tooling
         // to make it worthwhile.
 
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/rohdekill.png');
 
-        // this.load.spritesheet("ufo", "assets/images/ufo.png", 32, 32, 1);
+        this.load.spritesheet("hero", "assets/images/hero.png", 32, 32, 2);
+        this.load.spritesheet("attacker1", "assets/images/groundmeeleattacker.png", 32, 32, 2);
+        this.load.spritesheet("boss1", "assets/images/boss1.png", 32, 32, 1);
+
+        this.load.spritesheet("gamepad3", "assets/images/gamepad3.png", 64, 64, 1);
+
+        this.load.tilemap("level1", "assets/maps/level1.json", null, Phaser.Tilemap.TILED_JSON)
+        this.load.spritesheet("blocks", "assets/images/blocks.png", 16, 16);
+        this.load.spritesheet("gold", "assets/images/gold.png", 16, 16);
+
         // this.load.audio('clank', [ "assets/sounds/clank.mp3", "assets/sounds/clank.ogg" ]);
     }
 

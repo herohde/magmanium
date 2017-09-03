@@ -17,7 +17,7 @@ export class Boot extends Phaser.State {
 
         if (!this.game.device.desktop) {
             // Use fullscreen mode on phones and tablets.
-           //  this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         }
 
         this.game.state.start('preload');
