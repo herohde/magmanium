@@ -36,6 +36,7 @@ export class Game extends Phaser.State {
         map.setCollisionByExclusion([], true, 'blocks');
 
         this.points = this.add.group();
+        this.collectSound = this.game.add.audio('clank');
 
         let objs = map.objects['objects'];
         for (let obj of objs) {
@@ -76,6 +77,7 @@ export class Game extends Phaser.State {
         this.game.physics.arcade.collide(this.player, this.blocks);
 
         this.physics.arcade.overlap(this.player, this.points, (b : Phaser.Sprite, c : Points) => {
+            this.collectSound.play('', 0, 0.2);
             this.session.score.inc(c.value);
             c.kill();
         }, null, this);
@@ -101,6 +103,8 @@ export class Game extends Phaser.State {
 
     // Different kinds of game world entities.
     private points: Phaser.Group;
+    private collectSound: Phaser.Sound;
+
 }
 
 interface Properties {
