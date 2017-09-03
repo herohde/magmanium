@@ -33,7 +33,8 @@ export class Preload extends Phaser.State {
 
         this.load.tilemap("level1", "assets/maps/level1.json", null, Phaser.Tilemap.TILED_JSON)
         this.load.spritesheet("blocks", "assets/images/blocks.png", 16, 16);
-        this.load.spritesheet("gold", "assets/images/gold.png", 16, 16);
+        this.load.spritesheet("coin", "assets/images/coin.png", 12, 12);
+        this.load.spritesheet("portal", "assets/images/portal.png", 32, 32);
 
         // this.load.audio('clank', [ "assets/sounds/clank.mp3", "assets/sounds/clank.ogg" ]);
     }
