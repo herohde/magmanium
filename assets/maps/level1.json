@@ -32445,6 +32445,26 @@
                  "width":16,
                  "x":688,
                  "y":353
+                }, 
+                {
+                 "gid":13,
+                 "height":16,
+                 "id":1417,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"barrier"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":473,
+                 "y":600
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -32452,7 +32472,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":1416,
+ "nextobjectid":1418,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
@@ -32472,15 +32492,15 @@
          "tilewidth":16
         }, 
         {
-         "columns":2,
+         "columns":3,
          "firstgid":7,
          "image":"..\/..\/art\/sprites\/objects.png",
          "imageheight":48,
-         "imagewidth":32,
+         "imagewidth":48,
          "margin":0,
          "name":"objects",
          "spacing":0,
-         "tilecount":6,
+         "tilecount":9,
          "tileheight":16,
          "tilewidth":16
         }],

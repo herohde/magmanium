@@ -35,6 +35,7 @@ export class Preload extends Phaser.State {
         this.load.spritesheet("blocks", "assets/images/blocks.png", 16, 16);
         this.load.spritesheet("coin", "assets/images/coin.png", 12, 12);
         this.load.spritesheet("portal", "assets/images/portal.png", 32, 32);
+        this.load.spritesheet("blank", "assets/images/blank.png", 32, 32);
 
         this.load.audio('clank', [ "assets/sounds/clank.mp3", "assets/sounds/clank.ogg" ]);
     }

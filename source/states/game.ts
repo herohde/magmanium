@@ -40,6 +40,7 @@ export class Game extends Phaser.State {
         this.collectSound = this.game.add.audio('clank');
 
         this.enemies = this.add.group();
+        this.barriers = this.add.group();
 
         let objs = map.objects['objects'];
         for (let obj of objs) {
@@ -51,6 +52,15 @@ export class Game extends Phaser.State {
                 case "groundmelee":
                     let enemy = new GroundMelee(this.game, obj.x * 2, (obj.y - 16) * 2);
                     this.enemies.add(enemy);
+                    break;
+                case "barrier":
+                    // Invisible barriers to restrict enemy movement.
+                    let barrier = this.game.add.sprite((obj.x - 32) * 2, (obj.y - 32) * 2, "blank");
+                    this.game.physics.arcade.enable(barrier);
+                    barrier.body.allowGravity = false;
+                    barrier.body.immovable = true;
+                    barrier.scale.setTo(2,2);
+                    this.barriers.add(barrier);
                     break;
                 case "portal":
                     this.portal = this.game.add.sprite((obj.x - 64) * 2, (obj.y - 64) * 2, "portal");
@@ -83,6 +93,7 @@ export class Game extends Phaser.State {
     update() {
         this.game.physics.arcade.collide(this.player, this.blocks);
         this.game.physics.arcade.collide(this.enemies, this.blocks);
+        this.game.physics.arcade.collide(this.enemies, this.barriers);
         // this.game.physics.arcade.collide(this.enemies, this.enemies);
 
         this.physics.arcade.overlap(this.player, this.points, (b : Phaser.Sprite, c : Points) => {
@@ -105,6 +116,9 @@ export class Game extends Phaser.State {
         this.enemies.forEachAlive((p : Phaser.Sprite) => {
             this.game.debug.body(p);
         }, this);
+        this.barriers.forEachAlive((p : Phaser.Sprite) => {
+            this.game.debug.body(p);
+        }, this);
         this.game.debug.body(this.player);
 
         /*
@@ -123,6 +137,7 @@ export class Game extends Phaser.State {
     private collectSound: Phaser.Sound;
 
     private enemies: Phaser.Group;
+    private barriers: Phaser.Group;
 }
 
 interface Properties {
