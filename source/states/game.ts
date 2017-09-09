@@ -3,6 +3,7 @@ import {Text} from "../util/text"
 import {Session} from "../session";
 import {Player} from "../prefabs/player";
 import {Points} from "../prefabs/points";
+import {GroundMelee} from "../prefabs/groundmelee";
 
 /*
  * Game state
@@ -38,12 +39,18 @@ export class Game extends Phaser.State {
         this.points = this.add.group();
         this.collectSound = this.game.add.audio('clank');
 
+        this.enemies = this.add.group();
+
         let objs = map.objects['objects'];
         for (let obj of objs) {
             let p : Properties = obj.properties;
             switch (p.type) {
                 case "player":
                     this.player = new Player(this.game, obj.x * 2, (obj.y - 16) * 2);
+                    break;
+                case "groundmelee":
+                    let enemy = new GroundMelee(this.game, obj.x * 2, (obj.y - 16) * 2);
+                    this.enemies.add(enemy);
                     break;
                 case "portal":
                     this.portal = this.game.add.sprite((obj.x - 64) * 2, (obj.y - 64) * 2, "portal");
@@ -75,6 +82,8 @@ export class Game extends Phaser.State {
 
     update() {
         this.game.physics.arcade.collide(this.player, this.blocks);
+        this.game.physics.arcade.collide(this.enemies, this.blocks);
+        // this.game.physics.arcade.collide(this.enemies, this.enemies);
 
         this.physics.arcade.overlap(this.player, this.points, (b : Phaser.Sprite, c : Points) => {
             this.collectSound.play('', 0, 0.2);
@@ -87,13 +96,21 @@ export class Game extends Phaser.State {
             this.game.state.start('game');
         }, null, this);
 
+        this.physics.arcade.overlap(this.player, this.enemies, (b : Phaser.Sprite, c : Phaser.Sprite) => {
+            this.game.state.start('end');
+        }, null, this);
+
         // ...
+
+        this.enemies.forEachAlive((p : Phaser.Sprite) => {
+            this.game.debug.body(p);
+        }, this);
+        this.game.debug.body(this.player);
 
         /*
         this.points.forEachAlive((p : Points) => {
             this.game.debug.body(p);
         }, this);
-        this.game.debug.body(this.player);
         */
     }
 
@@ -105,6 +122,7 @@ export class Game extends Phaser.State {
     private points: Phaser.Group;
     private collectSound: Phaser.Sound;
 
+    private enemies: Phaser.Group;
 }
 
 interface Properties {
