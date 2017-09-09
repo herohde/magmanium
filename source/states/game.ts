@@ -55,7 +55,7 @@ export class Game extends Phaser.State {
                     break;
                 case "barrier":
                     // Invisible barriers to restrict enemy movement.
-                    let barrier = this.game.add.sprite((obj.x - 32) * 2, (obj.y - 32) * 2, "blank");
+                    let barrier = this.game.add.sprite(obj.x * 2, (obj.y - 32) * 2, "blank");
                     this.game.physics.arcade.enable(barrier);
                     barrier.body.allowGravity = false;
                     barrier.body.immovable = true;
@@ -111,8 +111,7 @@ export class Game extends Phaser.State {
             this.game.state.start('end');
         }, null, this);
 
-        // ...
-
+        /*
         this.enemies.forEachAlive((p : Phaser.Sprite) => {
             this.game.debug.body(p);
         }, this);
@@ -121,7 +120,6 @@ export class Game extends Phaser.State {
         }, this);
         this.game.debug.body(this.player);
 
-        /*
         this.points.forEachAlive((p : Points) => {
             this.game.debug.body(p);
         }, this);
@@ -145,4 +143,3 @@ interface Properties {
     sprite: string
     value: number
 }
-
