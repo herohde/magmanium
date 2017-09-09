@@ -23,7 +23,7 @@ export class Game extends Phaser.State {
     create() {
         // Load level data
 
-        let map = this.game.add.tilemap('level1'); // + this.session.level);
+        let map = this.game.add.tilemap('level' + ((this.session.level+1) % 2 + 1));
         // We do not load the maplevel object sprites. We create the real
         // ones manually. The blocks are the real deal, for now.
         map.addTilesetImage('blocks', 'blocks');
@@ -55,15 +55,15 @@ export class Game extends Phaser.State {
                     break;
                 case "barrier":
                     // Invisible barriers to restrict enemy movement.
-                    let barrier = this.game.add.sprite(obj.x * 2, (obj.y - 32) * 2, "blank");
+                    let barrier = this.game.add.sprite(obj.x * 2, (obj.y - 16) * 2, "blank");
                     this.game.physics.arcade.enable(barrier);
                     barrier.body.allowGravity = false;
                     barrier.body.immovable = true;
-                    barrier.scale.setTo(2,2);
+                    // barrier.scale.setTo(2,2);
                     this.barriers.add(barrier);
                     break;
                 case "portal":
-                    this.portal = this.game.add.sprite((obj.x - 64) * 2, (obj.y - 64) * 2, "portal");
+                    this.portal = this.game.add.sprite((obj.x - 32)  * 2, (obj.y - 64) * 2, "portal");
                     this.game.physics.arcade.enable(this.portal);
                     this.portal.body.allowGravity = false;
                     this.portal.scale.setTo(4,4);
