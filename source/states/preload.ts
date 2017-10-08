@@ -25,14 +25,15 @@ export class Preload extends Phaser.State {
 
         this.load.image('background', 'assets/images/rohdekill.png');
 
-        this.load.spritesheet("hero", "assets/images/hero.png", 32, 32, 2);
+        this.load.spritesheet("hero", "assets/images/hero.png", 32, 32);
         this.load.spritesheet("attacker1", "assets/images/groundmeeleattacker.png", 32, 32, 2);
         this.load.spritesheet("boss1", "assets/images/boss1.png", 32, 32, 1);
 
         this.load.spritesheet("gamepad3", "assets/images/gamepad3.png", 64, 64, 1);
 
-        this.load.tilemap("level1", "assets/maps/level1.json", null, Phaser.Tilemap.TILED_JSON)
-        this.load.tilemap("level2", "assets/maps/level2.json", null, Phaser.Tilemap.TILED_JSON)
+        for (let i = 1; i<6; i++) {
+            this.load.tilemap("level" + i, "assets/maps/level" + i + ".json", null, Phaser.Tilemap.TILED_JSON)
+        }
         this.load.spritesheet("blocks", "assets/images/blocks.png", 16, 16);
         this.load.spritesheet("coin", "assets/images/coin.png", 12, 12);
         this.load.spritesheet("portal", "assets/images/portal.png", 32, 32);

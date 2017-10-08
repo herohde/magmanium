@@ -16,6 +16,7 @@ export class Player extends Phaser.Sprite {
 
         this.animations.add('idle', [0]);
         this.animations.add('walk', [0,1]);
+        this.animations.add('hit', [2]);
         this.animations.add('die', [4]);
         this.animations.play('idle', 2, true);
 
@@ -27,6 +28,15 @@ export class Player extends Phaser.Sprite {
 //        this.body.bounce = 0.2;
 
         // this.firesound = game.add.audio('short_laser');
+
+        // Add invisible sprite for the sword when it's hitting.
+        this.hit = this.game.add.sprite(0, 0, "blank");
+        this.game.physics.arcade.enable(this.hit);
+        this.hit.body.allowGravity = false;
+        this.hit.body.immovable = true;
+        this.hit.body.setSize(16, 4, 0, 0); // bounding box
+        this.hit.scale.setTo(4,4);
+        // this.hit.anchor.setTo(.5,.5);
 
         // this.health, heal, damage, ..
 
@@ -41,8 +51,10 @@ export class Player extends Phaser.Sprite {
     update() {
         const speed = 300;
 
-        this.body.velocity.x = 0;
         let isWalkingNow = false;
+        this.body.velocity.x = 0;
+
+        let isHittingNow = false;
 
         if (this.input4.left()) {
             this.body.velocity.x = -speed;
@@ -54,8 +66,9 @@ export class Player extends Phaser.Sprite {
             this.scale.x = 4;
             isWalkingNow = this.body.onFloor();
         }
-        if (this.input4.a()) {
-
+        if (this.input4.a() && !this.hitting) {
+            this.hitTimer = this.game.time.now + 200;
+            isHittingNow = true;
         }
         if (this.input4.b() && this.body.onFloor() && this.game.time.now > this.jumpTimer) {
             this.body.velocity.y = -300;
@@ -63,16 +76,44 @@ export class Player extends Phaser.Sprite {
             isWalkingNow = false;
         }
 
-        if (!this.walking && isWalkingNow) {
+        if (!this.hitting && isHittingNow) {
+            this.animations.play('hit', 2, true);
+            this.hit.body.x = this.x;
+            if (this.scale.x < 0) {
+                this.hit.body.x -= 64; // hit left
+            }
+            this.hit.body.y = this.y - 24;
+            this.hitting = true;
+        } else if (!this.walking && isWalkingNow) {
             this.animations.play('walk', 8, true);
             this.walking = true;
         } else if (this.walking && !isWalkingNow) {
             this.animations.play('idle', 2, true);
             this.walking = false;
         }
+        if (this.hitting && this.hitTimer < this.game.time.now) {
+            this.animations.play('idle', 2, true);
+            this.hitting = false;
+        }
     }
+
+    public hitting: boolean = false;
+    public hit: Phaser.Sprite;
 
     private input4: Input4 = null;
     private walking: boolean = false;
+    private hitTimer: number = 0;
     private jumpTimer: number = 0;
+}
+
+// TODO(herohde) 10/8/2017: use enum for past and current action instead of booleans.
+export enum PlayerAction {
+    idle,
+    walking,
+    jumping,
+    hitting
+}
+
+export class DeadPlayer extends Phaser.Sprite {
+
 }

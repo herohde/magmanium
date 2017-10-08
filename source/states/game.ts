@@ -23,7 +23,7 @@ export class Game extends Phaser.State {
     create() {
         // Load level data
 
-        let map = this.game.add.tilemap('level' + ((this.session.level+1) % 2 + 1));
+        let map = this.game.add.tilemap('level' + ((this.session.level-1) % 5 + 1));
         // We do not load the maplevel object sprites. We create the real
         // ones manually. The blocks are the real deal, for now.
         map.addTilesetImage('blocks', 'blocks');
@@ -111,6 +111,14 @@ export class Game extends Phaser.State {
             this.game.state.start('end');
         }, null, this);
 
+        if (this.player.hitting) {
+            this.physics.arcade.overlap(this.player.hit, this.enemies, (b: Phaser.Sprite, c: Phaser.Sprite) => {
+                this.session.score.inc(20);
+                c.kill()
+            }, null, this);
+        }
+
+
         /*
         this.enemies.forEachAlive((p : Phaser.Sprite) => {
             this.game.debug.body(p);
@@ -118,11 +126,13 @@ export class Game extends Phaser.State {
         this.barriers.forEachAlive((p : Phaser.Sprite) => {
             this.game.debug.body(p);
         }, this);
-        this.game.debug.body(this.player);
 
         this.points.forEachAlive((p : Points) => {
             this.game.debug.body(p);
         }, this);
+
+        this.game.debug.body(this.player);
+        this.game.debug.body(this.player.hit);
         */
     }
 
