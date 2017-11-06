@@ -28,6 +28,7 @@ export class Player extends Phaser.Sprite {
 //        this.body.bounce = 0.2;
 
         // this.firesound = game.add.audio('short_laser');
+        this.swushSound = this.game.add.audio('swush');
 
         // Add invisible sprite for the sword when it's hitting.
         this.hit = this.game.add.sprite(0, 0, "blank");
@@ -78,6 +79,7 @@ export class Player extends Phaser.Sprite {
 
         if (!this.hitting && isHittingNow) {
             this.animations.play('hit', 2, true);
+            this.swushSound.play('', 0, 0.2);
             this.hit.body.x = this.x;
             if (this.scale.x < 0) {
                 this.hit.body.x -= 64; // hit left
@@ -104,6 +106,8 @@ export class Player extends Phaser.Sprite {
     private walking: boolean = false;
     private hitTimer: number = 0;
     private jumpTimer: number = 0;
+
+    private swushSound: Phaser.Sound;
 }
 
 // TODO(herohde) 10/8/2017: use enum for past and current action instead of booleans.

@@ -31,7 +31,7 @@ export class Preload extends Phaser.State {
 
         this.load.spritesheet("gamepad3", "assets/images/gamepad3.png", 64, 64, 1);
 
-        for (let i = 1; i<6; i++) {
+        for (let i = 1; i<7; i++) {
             this.load.tilemap("level" + i, "assets/maps/level" + i + ".json", null, Phaser.Tilemap.TILED_JSON)
         }
         this.load.spritesheet("blocks", "assets/images/blocks.png", 16, 16);
@@ -40,6 +40,9 @@ export class Preload extends Phaser.State {
         this.load.spritesheet("blank", "assets/images/blank.png", 32, 32);
 
         this.load.audio('clank', [ "assets/sounds/clank.mp3", "assets/sounds/clank.ogg" ]);
+        this.load.audio('die', [ "assets/sounds/die2.mp3", "assets/sounds/die2.ogg" ]);
+        this.load.audio('gameover', [ "assets/sounds/gameover1.mp3", "assets/sounds/gameover1.ogg" ]);
+        this.load.audio('swush', [ "assets/sounds/swush2.mp3", "assets/sounds/swush2.ogg" ]);
     }
 
     create() {

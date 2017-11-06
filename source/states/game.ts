@@ -23,7 +23,9 @@ export class Game extends Phaser.State {
     create() {
         // Load level data
 
-        let map = this.game.add.tilemap('level' + ((this.session.level-1) % 5 + 1));
+//        let map = this.game.add.tilemap('level2');
+        let map = this.game.add.tilemap('level' + ((this.session.level-1) % 6 + 1));
+
         // We do not load the maplevel object sprites. We create the real
         // ones manually. The blocks are the real deal, for now.
         map.addTilesetImage('blocks', 'blocks');
@@ -38,6 +40,8 @@ export class Game extends Phaser.State {
 
         this.points = this.add.group();
         this.collectSound = this.game.add.audio('clank');
+        this.dieSound = this.game.add.audio('die');
+        this.gameoverSound = this.game.add.audio('gameover');
 
         this.enemies = this.add.group();
         this.barriers = this.add.group();
@@ -108,16 +112,17 @@ export class Game extends Phaser.State {
         }, null, this);
 
         this.physics.arcade.overlap(this.player, this.enemies, (b : Phaser.Sprite, c : Phaser.Sprite) => {
+            this.gameoverSound.play('', 0, 0.5)
             this.game.state.start('end');
         }, null, this);
 
         if (this.player.hitting) {
             this.physics.arcade.overlap(this.player.hit, this.enemies, (b: Phaser.Sprite, c: Phaser.Sprite) => {
                 this.session.score.inc(20);
+                this.dieSound.play('', 0, 0.5)
                 c.kill()
             }, null, this);
         }
-
 
         /*
         this.enemies.forEachAlive((p : Phaser.Sprite) => {
@@ -143,6 +148,8 @@ export class Game extends Phaser.State {
     // Different kinds of game world entities.
     private points: Phaser.Group;
     private collectSound: Phaser.Sound;
+    private dieSound: Phaser.Sound;
+    private gameoverSound: Phaser.Sound;
 
     private enemies: Phaser.Group;
     private barriers: Phaser.Group;
