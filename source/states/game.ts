@@ -23,8 +23,8 @@ export class Game extends Phaser.State {
     create() {
         // Load level data
 
-//        let map = this.game.add.tilemap('level2');
-        let map = this.game.add.tilemap('level' + ((this.session.level-1) % 6 + 1));
+//        let map = this.game.add.tilemap('level3');
+        let map = this.game.add.tilemap('level' + ((this.session.level-1) % 4 + 1));
 
         // We do not load the maplevel object sprites. We create the real
         // ones manually. The blocks are the real deal, for now.

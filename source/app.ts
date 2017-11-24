@@ -16,7 +16,7 @@ class Invaders extends Phaser.Game {
         super(window.innerWidth - 16, window.innerHeight - 16, Phaser.AUTO, id);
 
         let session = new Session();
-        session.score.name = "Magnus";
+        session.score.name = "Alex/Paula";
 
         this.state.add('boot', new Boot());
         this.state.add('preload', new Preload());
