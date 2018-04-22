@@ -1,21 +1,21 @@
 {
   "name": "magnamium",
   "version": "1.0.0",
-  "description": "Magmanuim game",
+  "description": "Magmanuim platform game",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server -d --inline --hot --progress --no-info --port 9001"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/herohde/magmanium.git"
+    "url": "git+https://github.com/rohdekill/magmanium.git"
   },
-  "author": "herohde",
-  "license": "",
+  "author": "Rohdekill",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/herohde/magmanium/issues"
+    "url": "https://github.com/rohdekill/magmanium/issues"
   },
-  "homepage": "https://github.com/herohde/imagmanium#readme",
+  "homepage": "https://github.com/rohdekill/imagmanium#readme",
   "devDependencies": {
     "@types/node": "^7.0.5",
     "babel-cli": "^6.24.0",
