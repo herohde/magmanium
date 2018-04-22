@@ -1,9 +1,9 @@
 # Magmanium
 
-Magmanuim is a platform game created by Magnus. It
+Magmanium is a platform game created by Magnus. It
 can be played at:
 
-   http://www.rohdekill.org/magmanuim/index.html
+   http://www.rohdekill.org/magmanium/index.html
    
 It is playable in browsers and on tablets.
 
