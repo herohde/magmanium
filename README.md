@@ -1,5 +1,7 @@
 # Magmanium
 
+[![Build Status](https://travis-ci.org/rohdekill/magmanium.svg?branch=master)](https://travis-ci.org/rohdekill/magmanium)
+
 Magmanium is a platform game created by Magnus. It
 can be played at:
 
